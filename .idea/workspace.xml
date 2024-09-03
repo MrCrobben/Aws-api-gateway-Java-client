@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b266a52c-baed-4174-9929-cf14f13ab671" name="Changes" comment="Added javadoc">
-      <change afterPath="$PROJECT_DIR$/src/test/java/HttpClientTest.java" afterDir="false" />
+    <list default="true" id="b266a52c-baed-4174-9929-cf14f13ab671" name="Changes" comment="Added tests and fixed body">
+      <change afterPath="$PROJECT_DIR$/Readme.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/mrcrobben/client/HttpClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/mrcrobben/client/HttpClient.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,7 +131,7 @@
       <option name="presentableId" value="Default" />
       <updated>1724925775820</updated>
       <workItem from="1724925776930" duration="11275000" />
-      <workItem from="1725351588903" duration="4742000" />
+      <workItem from="1725351588903" duration="5587000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <option name="closed" value="true" />
@@ -167,7 +165,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724957000731</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Added tests and fixed body">
+      <option name="closed" value="true" />
+      <created>1725382499116</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1725382499117</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -199,7 +205,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="First commit" />
     <MESSAGE value="Added javadoc" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added javadoc" />
+    <MESSAGE value="Added tests and fixed body" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added tests and fixed body" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
