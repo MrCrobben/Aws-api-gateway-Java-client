@@ -4,19 +4,14 @@ import com.github.mrcrobben.exception.ApiGatewayException;
 import com.github.mrcrobben.model.AwsProperties;
 import com.github.mrcrobben.model.HttpMethod;
 import com.github.mrcrobben.model.ProxyProperties;
-import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
-import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
-import software.amazon.awssdk.core.sync.RequestBody;
-import software.amazon.awssdk.http.HttpExecuteRequest;
-import software.amazon.awssdk.http.SdkHttpClient;
-import software.amazon.awssdk.http.SdkHttpFullRequest;
-import software.amazon.awssdk.http.SdkHttpResponse;
+import software.amazon.awssdk.http.*;
 import software.amazon.awssdk.http.apache.ApacheHttpClient;
 import software.amazon.awssdk.http.apache.ProxyConfiguration;
 import software.amazon.awssdk.http.auth.aws.signer.AwsV4HttpSigner;
 import software.amazon.awssdk.http.auth.spi.signer.SignedRequest;
 import software.amazon.awssdk.identity.spi.AwsCredentialsIdentity;
 
+import javax.xml.transform.stream.StreamSource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -53,14 +48,15 @@ public class HttpClient {
      * Executes an HTTP request with the specified method, payload, and content type.
      *
      * @param method the HTTP method to use for the request (e.g., GET, POST). Must not be {@code null}.
-     * @param payload the payload to send in the request body. Must not be {@code null}.
+     * @param payloadString the payload to send in the request body. Must not be {@code null}.
      * @param contentType the content type of the payload. Must not be {@code null}.
      * @return an {@link InputStream} containing the response body.
      * @throws ApiGatewayException if the request fails or the response body is empty.
      */
-    public InputStream execute(final HttpMethod method, final String payload, final ContentType contentType) {
+    public InputStream execute(final HttpMethod method, final String payloadString, final ContentType contentType) {
+        final var payload = ContentStreamProvider.fromUtf8String(payloadString);
         final var preparedRequest = getPreparedRequest(method, payload, contentType);
-        final var signedRequest = getSignedRequest(preparedRequest);
+        final var signedRequest = getSignedRequest(preparedRequest, payload);
 
         final var httpExecuteRequest = HttpExecuteRequest.builder()
                 .request(signedRequest.request())
@@ -78,10 +74,11 @@ public class HttpClient {
                 throw new ApiGatewayException(handleError);
             }
 
-            try (final var responseStream = response.responseBody()
-                    .orElseThrow(() -> new ApiGatewayException("Response body is empty!"))) {
-                return responseStream.delegate();
-            }
+            return response.responseBody()
+                    .map(StreamSource::new)
+                    .orElseThrow(() -> new ApiGatewayException("Response body is empty!"))
+                    .getInputStream();
+
         } catch (IOException e) {
             throw new ApiGatewayException(e);
         }
@@ -95,16 +92,14 @@ public class HttpClient {
      * @param contentType the content type of the payload. Must not be {@code null}.
      * @return a {@link SdkHttpFullRequest} object representing the prepared request.
      */
-    private SdkHttpFullRequest getPreparedRequest(final HttpMethod method, final String payload,
+    private SdkHttpFullRequest getPreparedRequest(final HttpMethod method, final ContentStreamProvider payload,
                                                   final ContentType contentType) {
-        final var contentStream = RequestBody.fromString(payload)
-                .contentStreamProvider();
 
         return SdkHttpFullRequest.builder()
                 .method(method.getMethod())
                 .uri(URI.create(awsProperties.awsApiGatewayEndpoint()))
                 .putHeader("Content-Type", contentType.getContentType())
-                .contentStreamProvider(contentStream)
+                .contentStreamProvider(payload)
                 .build();
     }
 
@@ -114,12 +109,14 @@ public class HttpClient {
      * @param request the request to sign. Must not be {@code null}.
      * @return a {@link SignedRequest} object representing the signed request.
      */
-    private SignedRequest getSignedRequest(final SdkHttpFullRequest request) {
+    private SignedRequest getSignedRequest(final SdkHttpFullRequest request,
+                                           final ContentStreamProvider payload) {
         final var signer = AwsV4HttpSigner.create();
         final var credentials = getCredentials();
 
         return signer.sign(r -> r.identity(credentials)
                 .request(request)
+                .payload(payload)
                 .putProperty(AwsV4HttpSigner.SERVICE_SIGNING_NAME, awsProperties.serviceName())
                 .putProperty(AwsV4HttpSigner.REGION_NAME, awsProperties.awsRegion()));
     }
@@ -130,9 +127,7 @@ public class HttpClient {
      * @return an {@link AwsCredentialsIdentity} object containing the AWS credentials.
      */
     private AwsCredentialsIdentity getCredentials() {
-        return StaticCredentialsProvider.create(
-                        AwsBasicCredentials.create(awsProperties.awsIamAccessKey(), awsProperties.awsSecretAccessKey()))
-                .resolveCredentials();
+        return AwsCredentialsIdentity.create(awsProperties.awsIamAccessKey(), awsProperties.awsSecretAccessKey());
     }
 
     /**
@@ -155,12 +150,12 @@ public class HttpClient {
      * @return a {@link ProxyConfiguration} object.
      */
     private ProxyConfiguration getProxyConfiguration() {
-        final var proxyConfig = ProxyConfiguration.builder();
+        final var proxyConfig = ProxyConfiguration.builder()
+                .useEnvironmentVariableValues(false)
+                .useSystemPropertyValues(false);
 
-        if (proxyProperties == null || !proxyProperties.enabled()) {
-            proxyConfig.useEnvironmentVariableValues(false);
-            proxyConfig.useSystemPropertyValues(false);
-        } else {
+        if (proxyProperties != null && !proxyProperties.enabled()) {
+
             proxyConfig.username(proxyProperties.username());
             proxyConfig.password(proxyProperties.password());
             proxyConfig.endpoint(getEndpoint());

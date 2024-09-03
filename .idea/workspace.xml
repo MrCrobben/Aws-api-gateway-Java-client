@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b266a52c-baed-4174-9929-cf14f13ab671" name="Changes" comment="First commit">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/mrcrobben/client/ClientConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/mrcrobben/client/ClientConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/mrcrobben/client/ClientConfigurationBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/mrcrobben/client/ClientConfigurationBuilder.java" afterDir="false" />
+    <list default="true" id="b266a52c-baed-4174-9929-cf14f13ab671" name="Changes" comment="Added javadoc">
+      <change afterPath="$PROJECT_DIR$/src/test/java/HttpClientTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/mrcrobben/client/HttpClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/mrcrobben/client/HttpClient.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +45,10 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "JUnit.HttpClientTest.executor": "Run",
+    "JUnit.HttpClientTest.testExecuteEmptyResponseBody.executor": "Run",
+    "JUnit.HttpClientTest.testExecuteRequestFailure.executor": "Run",
+    "JUnit.HttpClientTest.testExecuteSuccessfulRequest.executor": "Run",
     "Maven.aws-api-gateway-java-client [clean].executor": "Run",
     "Maven.aws-api-gateway-java-client [compile].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -61,6 +67,55 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunManager" selected="JUnit.HttpClientTest">
+    <configuration name="HttpClientTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="aws-api-gateway-java-client" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="HttpClientTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HttpClientTest.testExecuteEmptyResponseBody" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="aws-api-gateway-java-client" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="HttpClientTest" />
+      <option name="METHOD_NAME" value="testExecuteEmptyResponseBody" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HttpClientTest.testExecuteRequestFailure" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="aws-api-gateway-java-client" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="HttpClientTest" />
+      <option name="METHOD_NAME" value="testExecuteRequestFailure" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HttpClientTest.testExecuteSuccessfulRequest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="aws-api-gateway-java-client" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="HttpClientTest" />
+      <option name="METHOD_NAME" value="testExecuteSuccessfulRequest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.HttpClientTest" />
+        <item itemvalue="JUnit.HttpClientTest.testExecuteRequestFailure" />
+        <item itemvalue="JUnit.HttpClientTest.testExecuteSuccessfulRequest" />
+        <item itemvalue="JUnit.HttpClientTest.testExecuteEmptyResponseBody" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -77,7 +132,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1724925775820</updated>
-      <workItem from="1724925776930" duration="10326000" />
+      <workItem from="1724925776930" duration="11275000" />
+      <workItem from="1725351588903" duration="4742000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <option name="closed" value="true" />
@@ -103,7 +159,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724956430933</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added javadoc">
+      <option name="closed" value="true" />
+      <created>1724957000731</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1724957000731</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -134,7 +198,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="First commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="First commit" />
+    <MESSAGE value="Added javadoc" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added javadoc" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
