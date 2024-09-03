@@ -2,6 +2,8 @@
 
 This library provides a simple and efficient Java client for interacting with AWS API Gateway. It utilizes AWS SDK's HTTP client to execute HTTP requests with AWS V4 signing and optional proxy configuration. The library is designed to be flexible, allowing for easy integration with different AWS services.
 
+Currently client is using Apache client for issuing requests. There is currently no support for other AWS services. Only processing API calls on AWS machines protected by IAM security.
+
 ## Features
 
 - **AWS V4 Signing**: Automatically sign requests using AWS V4 signing.
